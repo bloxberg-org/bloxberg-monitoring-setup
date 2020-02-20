@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  parity:
+    image: parity/parity:v2.7.2-stable
+    restart: always
+    volumes:
+      - "./parity/bloxberg.json:/bloxberg.json"
+      - "./parity/bootnodes.txt:/bootnodes.txt"
+    command: --mode active --chain /bloxberg.json --reserved-peers /bootnodes.txt --base-path /data --ports-shift=0 --jsonrpc-threads 2 --jsonrpc-server-threads 2 --jsonrpc-interface all --no-ws --tracing on --pruning fast
+    user: root 
+
+# For local testing
+networks:
+  default:
+    external:
+      name: monitoring_bloxberg
